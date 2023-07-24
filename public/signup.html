@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dcoument</title>
+</head>
+<body>
+
+  <ul class="nav justify-content-center" style="margin-left: 30%; margin-right:30%; margin-top:20px">
+      <li class="nav-item">
+        <a class="nav-link active" href="/home">Home</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/index">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Profile</a>
+      </li>
+  </ul>
+
+
+<!--<form method="POST" action="/signup" style="margin-left: 40% ; margin-right:40% ; margin-top:5%">-->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email" required="true">
+    </div>
+    <div class="form-group">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" required="true">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="inputAddress2">User name</label>
+    <input type="text" class="form-control" id="username" placeholder=" Username " required="true">
+  </div>
+
+    </div>
+  </div>
+ 
+      <div class="form-group">
+                  <label for="exampleSelect1">profession </label>
+                  <select class="form-control" id="profession" required="true">
+                    <option> </option>
+                    
+                    <option>Administrator</option>
+                    <option>Student</option>
+                    <option>Faculty/Staff</option>
+                    <option>Cleaner</option>
+                   
+                  </select>
+    </div>
+  <button type="submit" id="signUp" class="btn btn-primary">Sign Up</button><a href="/">  Login</a>
+  <span id="Message"></span>
+</form>
+
+</div>
+ <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Message</h4>
+      </div>
+      <div class="modal-body">
+        <p id="myModalText">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript" src="public/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  
+  $("#signUp").on('click', () => {
+    if($('#email').val() == '') {
+        $('#myModalText').html('Please enter a valid eamil');
+        $('#myModal').modal('show');
+        return;
+      }
+
+      if($('#password').val() == '') {
+        $('#myModalText').html('Please enter a valid password');
+        $('#myModal').modal('show');
+        return;
+      }
+
+      if($('#profession').val() == '') {
+        $('#myModalText').html('Please select a profession');
+        $('#myModal').modal('show');
+        return;
+      }
+
+      if($('#username').val() == '') {
+        $('#myModalText').html('Please enter a valid Username');
+        $('#myModal').modal('show');
+        return;
+      }
+
+   /*   $(document).ready(function(){
+        var from,to,subject,text;
+        $("#send_email").click(function(){
+          to=$('#to').val();
+          $("#message").text("sending email");
+          $.get("http://localhost:3000/send",{to,to},function(data){
+            if(data="sent")
+            {
+              $("#message").empty().html("<p>Email is been sent to "+to+".Check inbox!</p>");
+            }
+
+          });
+        });
+        });
+    */
+
+ 
+      $.post('/signup', {
+            email: $('#email').val(),
+            username:$('#username').val(),
+            password: $('#password').val(),
+            profession: $('#profession').val()
+          }, (data) => {  
+             $('#myModalText').html(data.msg);
+         });
+      });
+  
+
+
+  </script>
+</body>
+</html>
